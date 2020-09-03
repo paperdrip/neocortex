@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 
-date: 
+title: DNS resolving issue in WSL2
+date: 2020-09-01 15:34
 tags: ["wsl", "linux"]
 summary:
 ---
