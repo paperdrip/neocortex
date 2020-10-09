@@ -1,8 +1,8 @@
 ---
 layout: post
 title: WSL2 cannot connect to the internet through LTE
-date: 
-tags: ["wsl2", "network"]
+date: 2020-10-08 10:50
+tags: ["wsl", "network"]
 summary:
 ---
 

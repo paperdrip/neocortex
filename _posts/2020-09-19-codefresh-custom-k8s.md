@@ -3,6 +3,7 @@ layout: post
 title: Using custom Kubernetes Cluster in Codefresh
 date: 2020-09-19 22:14
 tags: ["k8s"]
+summary:
 ---
 1. Give full permission to default account
 
