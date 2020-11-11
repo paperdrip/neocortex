@@ -33,7 +33,7 @@ So instead of just running the script, additional argument is needed.
 ### Looping through an array and test the connectivity
 Below are how I did to loop through the array and conduct test. One thing to note, 443 is not available as "CommonPort" and thus I have to specifiy it in numbers.
 
-`
+```
 foreach ($element in $array){
     Write-Host "Testing $counter out of $($array.Count)"
     $result = test-netconnection -ComputerName $element -Port 443 -InformationLevel Quiet -WarningAction SilentlyContinue
@@ -42,4 +42,4 @@ foreach ($element in $array){
     }
     $counter++
 }
-`
+```
