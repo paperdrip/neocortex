@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Monitor NodeJS app with New Relic
-date: 
+date: 2020-09-20 14:45
 tags: ["observability", "nodejs"]
 summary:
 ---
