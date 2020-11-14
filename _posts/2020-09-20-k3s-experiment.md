@@ -1,7 +1,7 @@
 ---
 layout: post
 title: K3S Experiment
-date: 
+date: 2020-09-20 13:45
 tags: ["k8s","k3s","edge"]
 summary:
 ---
