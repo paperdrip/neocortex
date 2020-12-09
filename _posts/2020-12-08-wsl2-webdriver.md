@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Deverloping UI testing script in WSL2 using WebDriver 
-date: 2020-12-09 16:14
+date: 2020-12-08 16:14
 tags: ["wsl", "development", "testing"]
 summary:
 ---
