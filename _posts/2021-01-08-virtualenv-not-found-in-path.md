@@ -23,3 +23,7 @@ export VIRTUALENVWRAPPER_VIRTUALENV=$HOME/.local/bin/virtualenv
 VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 . $HOME/.local/bin/virtualenvwrapper.sh
 ```
+
+I can then create new environment successfully with
+
+`mkvirualenv depthai` 
