@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Set the default container enginer in minikube
+title: Set the default container engine in minikube
 date: 2021-03-23 14:34
 tags: ["minikube"]
 summary:
