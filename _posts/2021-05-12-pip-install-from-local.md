@@ -16,3 +16,5 @@ The command below could do the tricks
 python3 -m pip download -d ./python_pkg -r requirement.txt
 python3 -m pip install -r requirements.txt --no-index --find-links file:///./python_pkg
 ```
+
+We can specify the version to download or the CPU architecture to support through the command line attributes, check the help file for details.
