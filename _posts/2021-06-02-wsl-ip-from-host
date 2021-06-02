@@ -1,0 +1,16 @@
+---
+layout: post
+title: Getting the IP address of WSL that the host can reach from 
+date: 2021-06-01 14:34
+tags: ["wsl2"]
+summary:
+---
+
+If I want to reach the WSL instance from the Window Host, I need to use the IP address that routed to it. This IP changes everytime when WSL starts.
+
+The command below returns all the IP address belongs to this instance and the first one in the list should be used for accessing from the host.
+
+```
+C:\Users\Ronnie.Kwok>wsl hostname -I
+172.24.115.21 172.21.0.1 192.168.49.1 172.20.0.1 192.168.59.1 172.17.0.1 172.25.0.1
+```
