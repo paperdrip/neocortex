@@ -23,4 +23,4 @@ flag.StringVar(&PlaygroundDomain, "playground-domain", "localhost", "Domain to u
 
 Then I `docker-compose down --rmi all` and `docker-compose up` which have all things working now.
 
-Reference Site : https://www.n0r1sk.com/post/running-play-with-docker-on-aws/
+Reference Site : [https://www.n0r1sk.com/post/running-play-with-docker-on-aws/](https://www.n0r1sk.com/post/running-play-with-docker-on-aws/)
