@@ -6,13 +6,24 @@ tags: ["linux", "cloudflared", "tailscale", "raspberry-pi"]
 summary:
 ---
 
-`cloudflared` failed to establish a tunnel on a Raspberry Pi that also runs Tailscale as an exit node. There were two separate problems.
+`cloudflared` failed to establish a tunnel on a Raspberry Pi running Tailscale. There were two separate problems. Advertising the Pi as an exit node with `--advertise-exit-node` only lets other devices use it; it does not route the Pi's own outbound traffic through Tailscale. The routing diagnosis below applies only if the Pi is itself configured to use an exit node, for example with `--exit-node=<exit-node>`.
 
 ## Problem
 
 * **UDP buffer bottleneck:** `cloudflared` (via the `quic-go` library) requested 7168 KiB UDP send and receive buffers to handle QUIC traffic efficiently, but the Raspberry Pi OS kernel was limited to the default 208 KiB (`net.core.rmem_max` / `net.core.wmem_max`).
-* **Connection timeouts to Cloudflare edge:** `cloudflared` repeatedly timed out trying to reach the Cloudflare Anycast IPs (`198.41.192.0/24` and `198.41.200.0/24`) on port 7844, because Tailscale was acting as an exit node and capturing all default outbound traffic (`0.0.0.0/0`).
-* **Static route overrides did not work:** Adding a standard route with `ip route add` had no effect. Tailscale uses Linux policy routing (`table 52`), and the kernel evaluates that table before the `main` table where the physical interface (`eth0`) lives.
+* **Connection timeouts to Cloudflare edge:** `cloudflared` repeatedly timed out trying to reach the Cloudflare Anycast IPs (`198.41.192.0/24` and `198.41.200.0/24`) on port 7844. If the Pi is using an exit node, its Tailscale policy-routing rules can direct default outbound traffic (`0.0.0.0/0`) through `tailscale0`.
+* **Static route overrides did not work:** Adding a standard route with `ip route add` had no effect when the policy-routing lookup selected Tailscale's `table 52` before the `main` table, where the physical interface (`eth0`) lives.
+
+Check the Pi's actual configuration and route selection before applying this fix:
+
+```
+tailscale status
+ip rule show
+ip route show table 52
+ip route get 198.41.192.1
+```
+
+The bypass below is appropriate only if the route lookup for a Cloudflare edge IP selects Tailscale's routing table/interface. If the Pi only advertises itself as an exit node, that alone does not explain the route or these timeouts.
 
 ## Resolution
 
@@ -59,6 +70,13 @@ ExecStop=/usr/sbin/ip rule del to 198.41.200.0/24 lookup main priority 5000
 
 [Install]
 WantedBy=multi-user.target
+```
+
+Before enabling the service, remove the rules added manually in step 2 so the service does not add duplicate copies:
+
+```
+sudo ip rule del to 198.41.192.0/24 lookup main priority 5000
+sudo ip rule del to 198.41.200.0/24 lookup main priority 5000
 ```
 
 Then enable it with `sudo systemctl daemon-reload && sudo systemctl enable --now cloudflare-bypass.service`.
